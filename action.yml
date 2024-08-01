@@ -1,0 +1,26 @@
+name: "Feature Test - Robot 2GP"
+description: "Create an scratch org containing a 2GP from the Build Feature Test Package build, and run Robot Framework tests"
+inputs:
+  cumulusci-version:
+    description: 'version of CumulusCI to install'
+    required: false
+  sfdx-version:
+    description: 'version of SFDX to install'
+    required: false
+  dev-hub-auth-url:
+    description: 'SFDX auth URL for the Dev Hub'
+    required: true
+  org-name:
+    description: 'Name of the scratch org config to use'
+    required: true
+    default: qa
+runs:
+  using: "composite"
+  steps:
+    - uses: nimba-actions/run-robot-flow-scratch@v1
+      with:
+        dev-hub-auth-url: '${{ inputs.dev-hub-auth-url }}'
+        org-name: '${{ inputs.org-name }}'
+        cumulusci-version: '${{ inputs.cumulusci-version }}'
+        sfdx-version: '${{ inputs.sfdx-version }}'
+        setup-flow: qa_org_2gp
